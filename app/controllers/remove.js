@@ -9,9 +9,9 @@ const remove = module.exports.remove = (data) => {
 	// Get the latest variables
 	VariableHelper()
 		.then((variables) => {
-			const { isvalidProject } = helpers.validate(data, variables, { isRemove: true });
+			const validated = helpers.validate(data, variables, { isRemove: true });
 
-			if (!isvalidProject) {
+			if (!validated.isValidProject) {
 				throw { log: false };
 			}
 

@@ -1,3 +1,5 @@
+const { get } = require("lodash");
+
 const helpers = require("./helpers");
 const variableHelper = require("../helpers/variables");
 const { remove } = require("./remove");
@@ -6,13 +8,18 @@ module.exports = (data) => {
 	// Get the latest variables
 	variableHelper()
 		.then((variables) => {
-			const { isvalidProject, toBeRemoved } = helpers.validate(data, variables);
+			const validated = helpers.validate(data, variables);
 
-			if (isvalidProject && toBeRemoved) {
-				remove(data);
+			console.log(data);
+
+			console.log(validated.isvalidProject, validated.toBeRemoved);
+
+			if (validated.isvalidProject && validated.toBeRemoved) {
+				remove(data).catch(() => console.log("remove of updated item failed", get(data, "id")));  // eslint-disable-line
+				throw { log: false };
 			}
 
-			if (!isvalidProject) {
+			if (!validated.isvalidProject) {
 				throw { log: false };
 			}
 
