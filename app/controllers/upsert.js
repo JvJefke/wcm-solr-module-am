@@ -12,10 +12,6 @@ module.exports = (data) => {
 		.then((variables) => {
 			const validated = helpers.validate(content, variables);
 
-			console.log(content);
-
-			console.log(validated);
-
 			if (validated.isValidProject && validated.isToBeRemoved) {
 				remove(content).catch(() => console.log("remove of updated item failed", get(content, "id")));  // eslint-disable-line
 				throw { log: false };
