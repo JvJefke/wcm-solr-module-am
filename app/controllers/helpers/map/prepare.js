@@ -13,7 +13,7 @@ const htmlToTextOptions = {
 };
 
 module.exports = (data) => {
-	console.log(data);
+	console.log(data.meta.slug);
 	// Set request options
 	data.options = {
 		method: methods[data.method],
