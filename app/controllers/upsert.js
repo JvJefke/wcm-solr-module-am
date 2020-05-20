@@ -4,20 +4,20 @@ const helpers = require("./helpers");
 const variableHelper = require("../helpers/variables");
 const { remove } = require("./remove");
 
-module.exports = (input) => {
-	const data = cloneDeep(input);
+module.exports = (data) => {
+	const content = get(data, "toJSON", false) ? data.toJSON() : cloneDeep(data);
 
 	// Get the latest variables
 	variableHelper()
 		.then((variables) => {
-			const validated = helpers.validate(data, variables);
+			const validated = helpers.validate(content, variables);
 
-			console.log(data);
+			console.log(content);
 
 			console.log(validated);
 
 			if (validated.isValidProject && validated.isToBeRemoved) {
-				remove(data).catch(() => console.log("remove of updated item failed", get(data, "id")));  // eslint-disable-line
+				remove(content).catch(() => console.log("remove of updated item failed", get(content, "id")));  // eslint-disable-line
 				throw { log: false };
 			}
 
@@ -27,7 +27,7 @@ module.exports = (input) => {
 
 			return variables;
 		})
-		.then((variables) => helpers.map.init(data, variables, "upsert")) // Set start object
+		.then((variables) => helpers.map.init(content, variables, "upsert")) // Set start object
 		.then(helpers.token)
 		.then(helpers.map.taxonomy)
 		.then(helpers.map.prepare)
