@@ -6,7 +6,7 @@ const upsert = require("./upsert");
 
 module.exports = (req, res) => {
 	helpers.db.getAll()
-		.then((projects) => Q.all(R.map(upsert, projects)))
+		.then((projects) => Q.allSettled(R.map(upsert, projects)))
 		.then(() => res.status(200).json({ msg: "All projects are updated" }))
 		.catch((responseError) => res.status(503).json({ err: responseError }));
 };

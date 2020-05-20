@@ -1,7 +1,7 @@
 "use strict";
 
 angular
-	.module("solr-am_1.1.2.factories")
+	.module("solr-am_1.1.3.factories")
 	.factory("solrAMFactory", [
 		"$http",
 		"configuration",

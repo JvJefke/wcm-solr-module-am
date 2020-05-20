@@ -3,13 +3,15 @@ const helpers = require("./helpers");
 const VariableHelper = require("../helpers/variables");
 const { emitter } = require("@wcm/module-helper");
 
-const remove = (data) => {
+const remove = module.exports.remove = (data) => {
 	const content = get(data, "toJSON", false) ? data.toJSON() : data;
-	// Get the latest variables
 
+	// Get the latest variables
 	VariableHelper()
 		.then((variables) => {
-			if (!helpers.validate(content, variables, { isRemove: true })) {
+			const { isvalidProject } = helpers.validate(data, variables, { isRemove: true });
+
+			if (!isvalidProject) {
 				throw { log: false };
 			}
 
