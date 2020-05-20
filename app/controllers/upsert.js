@@ -12,14 +12,14 @@ module.exports = (data) => {
 
 			console.log(data);
 
-			console.log(validated.isvalidProject, validated.toBeRemoved);
+			console.log(validated);
 
-			if (validated.isvalidProject && validated.toBeRemoved) {
+			if (validated.isValidProject && validated.isToBeRemoved) {
 				remove(data).catch(() => console.log("remove of updated item failed", get(data, "id")));  // eslint-disable-line
 				throw { log: false };
 			}
 
-			if (!validated.isvalidProject) {
+			if (!validated.isValidProject) {
 				throw { log: false };
 			}
 
