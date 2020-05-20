@@ -1,10 +1,10 @@
-const { get } = require("lodash");
+const { get, cloneDeep } = require("lodash");
 const helpers = require("./helpers");
 const VariableHelper = require("../helpers/variables");
 const { emitter } = require("@wcm/module-helper");
 
 const remove = module.exports.remove = (data) => {
-	const content = get(data, "toJSON", false) ? data.toJSON() : data;
+	const content = get(data, "toJSON", false) ? data.toJSON() : cloneDeep(data);
 
 	// Get the latest variables
 	VariableHelper()

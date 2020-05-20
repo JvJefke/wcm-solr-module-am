@@ -1,10 +1,12 @@
-const { get } = require("lodash");
+const { get, cloneDeep } = require("lodash");
 
 const helpers = require("./helpers");
 const variableHelper = require("../helpers/variables");
 const { remove } = require("./remove");
 
-module.exports = (data) => {
+module.exports = (input) => {
+	const data = cloneDeep(input);
+
 	// Get the latest variables
 	variableHelper()
 		.then((variables) => {
